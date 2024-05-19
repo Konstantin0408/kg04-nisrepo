@@ -280,8 +280,11 @@ int main(int argc, char *argv[])
                 }
                 printf("\n");*/
                 
-                if (send(dsplSock/*dspl socket*/, dspl_msgs + curr_sent, RCVBUFSIZE, 0) != RCVBUFSIZE)
-                    DieWithError("send() failed [display]");
+                if (send(dsplSock/*dspl socket*/, dspl_msgs + curr_sent, RCVBUFSIZE, 0) != RCVBUFSIZE) {
+                  printf("Socket %d disconnected\n", dsplSock);
+                  for (;;) { }
+                }
+                    
                 curr_sent += RCVBUFSIZE;
               }
             }
